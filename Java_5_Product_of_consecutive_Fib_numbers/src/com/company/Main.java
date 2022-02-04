@@ -17,7 +17,6 @@ public class Main {
         int i = 2;
         while(true){
             if(listFibonacci.get(i-1)*listFibonacci.get(i-2) > prod){
-                isOK = false;
                 return new long[] {listFibonacci.get(i-2), listFibonacci.get(i-1), 0};
             }else if(listFibonacci.get(i-1)*listFibonacci.get(i-2) == prod){
                 isOK = true;
