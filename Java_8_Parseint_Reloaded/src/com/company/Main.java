@@ -14,7 +14,7 @@ public class Main {
                                                      "nine hundred"};
 
     public static void main(String[] args) {
-        System.out.println(parseInt("OnE million one hundred thousand three hundred five"));
+        System.out.println(parseInt("OnE million one hundred fifty-five thousand three hundred five"));
     }
     public static int parseInt(String numStr) {
         int number = 0;
@@ -30,7 +30,19 @@ public class Main {
                 number += (i + 1) + 100000;
             }
             for(int j=0; j< fromTenToNinety.length;j++){
-
+                if(numStr.contains(hundreds[i] + " " +fromTenToNinety[j] + " thousand")){
+                    numStr = numStr.substring(hundreds[i].length() + " ".length() + fromTenToNinety[j].length() +
+                            " thousand".length() + 1);
+                    if(j < 10){number += (j+10) * 1000 + (i+1) * 100000;}
+                    else{number += (j-8) * 10000 + (i+1) * 100000;}
+                }
+                for(int k=0; k< fromZeroToNine.length;k++){
+                    if(numStr.contains(hundreds[i] + " " + fromTenToNinety[j] + "-" + fromZeroToNine[k] + " thousand")){
+                        numStr = numStr.substring(hundreds[i].length() + " ".length() + fromTenToNinety[j].length() +
+                                "-".length() + fromZeroToNine[k].length() + " thousand".length());
+                        number += (j-8) * 10000 + k * 1000 + (i+1) * 100000;
+                    }
+                }
             }
         }
         for(int i=0;i < fromTenToNinety.length;i++){
