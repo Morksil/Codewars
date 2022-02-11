@@ -1,10 +1,9 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
@@ -154,4 +153,103 @@ public class Main {
         }
         return number;
     }
+//Solutions----------------------------------------------------------------------------------------------------Solutions
+/*import java.util.HashMap;
+import java.util.Map;
+
+    public class Parser {
+
+        public static int parseInt(String numStr) {
+            String[] numArray = numStr.split("[ |-]");
+            int number = 0;
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("zero", 0);
+            map.put("one", 1);
+            map.put("two", 2);
+            map.put("three", 3);
+            map.put("four", 4);
+            map.put("five", 5);
+            map.put("six", 6);
+            map.put("seven", 7);
+            map.put("eight", 8);
+            map.put("nine", 9);
+            map.put("ten", 10);
+            map.put("eleven", 11);
+            map.put("twelve", 12);
+            map.put("thirteen", 13);
+            map.put("fourteen", 14);
+            map.put("fifteen", 15);
+            map.put("sixteen", 16);
+            map.put("seventeen", 17);
+            map.put("eighteen", 18);
+            map.put("nineteen", 19);
+            map.put("twenty", 20);
+            map.put("thirty", 30);
+            map.put("forty", 40);
+            map.put("fifty", 50);
+            map.put("sixty", 60);
+            map.put("seventy", 70);
+            map.put("eighty", 80);
+            map.put("ninety", 90);
+            map.put("hundred", 100);
+            map.put("thousand", 1000);
+            map.put("million", 1000000);
+
+            for (int i = 0; i < numArray.length; i++) {
+                for (String key : map.keySet()) {
+                    if (numArray[i].toLowerCase().equals(key)) {
+                        if (map.get(key) == 100) {
+                            int temp = number % 100;
+                            number -= temp;
+                            number += temp * (map.get(key));
+                        }
+                        else if (map.get(key) > 100)
+                            number *= (map.get(key));
+                        else
+                            number += map.get(key);
+                        break;
+                    }
+                }
+            }
+            return number;
+        }
+    }*/
+/*import java.util.*;
+import java.util.stream.*;
+
+    public class Parser {
+
+        final static private String[] SPLITTER = Arrays.asList("million", "thousand", "hundred", "ty\\b")
+                .stream()
+                .map( r -> String.format("\\s*%s\\s*", r) )
+                .toArray(String[]::new);
+
+        final static private int[]    COEFS = {1000000, 1000, 100, 10};
+        final static private String[] vals  = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split(" ");
+        final static private Map<String,Integer> VALUES = defineStaticValues();
+
+
+        private static Map<String,Integer> defineStaticValues() {
+            Map<String,Integer> map = IntStream.range(0,vals.length)
+                    .boxed()
+                    .collect(Collectors.toMap( i-> vals[i], i -> i));
+            map.put("twen", 2);    map.put("thir", 3);
+            map.put("for",  4);    map.put("fif",  5);
+            map.put("eigh", 8);
+            return map;
+        }
+
+
+        public static int parseInt(String s) { return parse(0, s.replaceAll("(\\s|-|\\band)+", " ")); }
+
+        private static int parse(int i, String s) {
+            if (i == SPLITTER.length) return VALUES.getOrDefault(s, 0);
+
+            String[] arr = s.split(SPLITTER[i], -1);
+
+            return arr.length==1 ? parse(i+1, arr[0])
+                    : COEFS[i] * parse(i+1,arr[0]) + parse(i+1,arr[1]);
+        }
+
+    }*/
 }
